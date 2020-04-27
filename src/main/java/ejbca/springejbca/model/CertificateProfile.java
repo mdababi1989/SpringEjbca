@@ -3,17 +3,18 @@ package ejbca.springejbca.model;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "CertificateProfileData")
 @Getter
-@ToString
 public class CertificateProfile {
     @Id
     private int id;
+
+    @OneToMany(mappedBy="certificateProfile", cascade= CascadeType.ALL)
+    private Collection<Certificate> certificates ;
 
     private String certificateProfileName;
     private byte[] data;

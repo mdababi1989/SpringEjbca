@@ -4,9 +4,8 @@ package ejbca.springejbca.model;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "endentityprofiledata")
@@ -14,6 +13,9 @@ import javax.persistence.Table;
 public class EndEntityProfile {
     @Id
     private int id;
+
+    @OneToMany(mappedBy="endEntityProfile", cascade= CascadeType.ALL)
+    private Collection<Certificate> certificates ;
 
     private byte[] data;
     private String profileName;

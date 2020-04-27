@@ -3,21 +3,26 @@ package ejbca.springejbca.model;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "CertificateData")
 @Getter
-@ToString
 public class Certificate {
     @Id
     private String fingerprint;
+
     private String cAFingerprint;
-    private int certificateProfileId;
+
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @JoinColumn(name="certificateProfileId", referencedColumnName = "id")
+    private CertificateProfile certificateProfile;
+
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @JoinColumn(name="endEntityProfileId", referencedColumnName = "id")
+    private EndEntityProfile endEntityProfile;
+
     private int crlPartitionIndex;
-    private int endEntityProfileId;
     private long expireDate;
     private String issuerDN;
     private long notBefore;

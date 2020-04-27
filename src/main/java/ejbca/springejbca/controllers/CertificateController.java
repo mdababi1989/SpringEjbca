@@ -19,7 +19,7 @@ public class CertificateController {
     @ResponseBody
     public String getAll(){
         List<Certificate> certificates = this.CertificateDataService.findAll();
-        System.out.println(certificates);
+        System.out.println(certificates.get(0).getEndEntityProfile().getProfileName());
         return "im hier";
     }
 
